@@ -69,3 +69,5 @@ This project is MIT licensed — see `LICENSE`.
 Project leads: Rashi Goyal  & Harshit  Badera
 Mentor: <Mentor Name> — for suggestions and testing opportunities.
 Temporary changes to readme file 
+
+chnages made by rashi now
