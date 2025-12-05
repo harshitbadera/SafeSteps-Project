@@ -7,7 +7,7 @@ A simple, accessible PWA with bite‑sized lessons, demos, quizzes, and printabl
 Many older adults struggle with new social platforms and online scams. SafeSteps gives step-by-step lessons for apps like WhatsApp and Swiggy and practical tips to spot phishing and protect accounts.
 
 ## MVP features
-- 6 lessons (phone basics, WhatsApp, food ordering, phishing, passwords, safe downloads)
+- 5 lessons (phone basics, WhatsApp, food ordering, phishing, passwords, safe downloads)
 - Step-by-step guides with slide format 
 - Short quiz after each lesson
 - Read‑aloud voice option, large fonts, high contrast
