@@ -66,5 +66,5 @@ See `CONTRIBUTING.md` for guidelines. Short version: open an issue to propose fe
 This project is MIT licensed — see `LICENSE`.
 
 ## Contact
-Project leads: Rashi  & Harshit  
+Project leads: Rashi Goyal  & Harshit  Badera
 Mentor: <Mentor Name> — for suggestions and testing opportunities.
