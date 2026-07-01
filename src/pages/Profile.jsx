@@ -5,6 +5,8 @@ import { useApp } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import SpeechSpeaker from '../components/SpeechSpeaker';
 import { translations } from '../data/translations';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 
 export default function Profile() {
   const { 
@@ -24,7 +26,10 @@ export default function Profile() {
     playSound,
     speakText,
     darkMode,
-    setDarkMode
+    setDarkMode,
+    voiceAssistantEnabled,
+    setVoiceAssistantEnabled,
+    setIsAuthenticated
   } = useApp();
 
   const navigate = useNavigate();
@@ -84,14 +89,23 @@ export default function Profile() {
     }, 150);
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     playSound('incorrect');
     const confirmClear = window.confirm(t.resetConfirm);
     if (confirmClear) {
       localStorage.clear();
       playSound('click');
-      window.location.href = '/welcome';
+      try { await signOut(auth); } catch (e) { /* ignore */ }
+      setIsAuthenticated(false);
+      window.location.href = '#/login';
     }
+  };
+
+  const handleLogout = async () => {
+    playSound('click');
+    try { await signOut(auth); } catch (e) { /* ignore */ }
+    setIsAuthenticated(false);
+    navigate('/login');
   };
 
   const allBadgesList = [
@@ -390,6 +404,43 @@ export default function Profile() {
           </div>
         </div>
 
+        {/* Voice Assistant Toggle */}
+        <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <h3 style={{ fontSize: '17px' }}>🔊 {language === 'hi' ? 'वॉइस सहायक' : language === 'kn' ? 'ಧ್ವನಿ ಸಹಾಯಕ' : 'Voice Assistant'}</h3>
+            <p style={{ fontSize: '12px', color: 'var(--color-gray-dark)', marginTop: '2px' }}>
+              {language === 'hi' ? 'सुनने के लिए बटन चालू करें' : language === 'kn' ? 'ಕೇಳಲು ಈ ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ' : 'Toggle on to enable read-aloud & speech'}
+            </p>
+          </div>
+          <button 
+            onClick={() => { playSound('click'); setVoiceAssistantEnabled(!voiceAssistantEnabled); }}
+            style={{ 
+              width: '80px', 
+              height: '42px', 
+              borderRadius: '21px', 
+              backgroundColor: voiceAssistantEnabled ? 'var(--color-success)' : 'var(--color-gray-light)',
+              border: 'none',
+              position: 'relative',
+              cursor: 'pointer',
+              transition: 'var(--transition)',
+              flexShrink: 0
+            }}
+            aria-label="Toggle Voice Assistant"
+          >
+            <div style={{ 
+              width: '34px', 
+              height: '34px', 
+              borderRadius: '50%', 
+              backgroundColor: 'white', 
+              position: 'absolute', 
+              top: '4px', 
+              left: voiceAssistantEnabled ? '42px' : '4px',
+              transition: 'var(--transition)',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+            }} />
+          </button>
+        </div>
+
         {/* Reset */}
         <button 
           className="btn-large btn-outline" 
@@ -397,6 +448,15 @@ export default function Profile() {
           onClick={handleReset}
         >
           {t.resetBtn}
+        </button>
+
+        {/* Logout */}
+        <button 
+          className="btn-large btn-accent"
+          style={{ minHeight: '52px', padding: '10px', marginBottom: '10px' }}
+          onClick={handleLogout}
+        >
+          {language === 'hi' ? '🚪 लॉगआउट करें' : language === 'kn' ? '🚪 ಲಾಗ್ ಔಟ್' : '🚪 Logout'}
         </button>
 
       </div>

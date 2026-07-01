@@ -5,6 +5,17 @@ const AppContext = createContext();
 export const useApp = () => useContext(AppContext);
 
 export const AppProvider = ({ children }) => {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('safesteps_isAuthenticated') === 'true';
+  });
+
+  // Voice Assistant Toggle
+  const [voiceAssistantEnabled, setVoiceAssistantEnabled] = useState(() => {
+    const saved = localStorage.getItem('safesteps_voiceAssistantEnabled');
+    return saved !== null ? saved === 'true' : false; // Off by default
+  });
+
   // Localization State
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem('safesteps_language') || 'en';
@@ -60,6 +71,14 @@ export const AppProvider = ({ children }) => {
 
   // Sync settings to localStorage
   useEffect(() => {
+    localStorage.setItem('safesteps_isAuthenticated', isAuthenticated);
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    localStorage.setItem('safesteps_voiceAssistantEnabled', voiceAssistantEnabled);
+  }, [voiceAssistantEnabled]);
+
+  useEffect(() => {
     localStorage.setItem('safesteps_language', language);
   }, [language]);
 
@@ -107,6 +126,9 @@ export const AppProvider = ({ children }) => {
 
   // Multilingual Text-To-Speech
   const speakText = (text) => {
+    // Only speak if voice assistant is enabled
+    if (!voiceAssistantEnabled) return;
+
     if (!('speechSynthesis' in window)) {
       alert("Voice features are not supported on this browser.");
       return;
@@ -258,6 +280,10 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
+      isAuthenticated,
+      setIsAuthenticated,
+      voiceAssistantEnabled,
+      setVoiceAssistantEnabled,
       language,
       setLanguage,
       fontScale,

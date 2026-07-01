@@ -2,7 +2,10 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 
 export default function SpeechSpeaker({ text }) {
-  const { speakText, isSpeaking, playSound, stopSpeaking } = useApp();
+  const { speakText, isSpeaking, playSound, stopSpeaking, voiceAssistantEnabled } = useApp();
+
+  // Don't render the speaker button at all if voice assistant is disabled
+  if (!voiceAssistantEnabled) return null;
 
   const handleSpeak = (e) => {
     e.stopPropagation();

@@ -2,16 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="theme-color" content="#006D77" />
     <title>SafeSteps - Easy Phone & Cyber Safety Guide</title>
     <!-- Google Fonts: Outfit for body and Fredoka for rounded buttons/headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+      /* Prevent black screen flash on Android/Capacitor */
+      html, body {
+        background-color: #EDF6F9;
+        margin: 0;
+        padding: 0;
+      }
+      /* Loading spinner shown before React mounts */
+      .app-loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #006D77 0%, #004D54 30%, #83C5BE 100%);
+        font-family: 'Fredoka', sans-serif;
+      }
+      .app-loading-icon { font-size: 56px; animation: app-bounce 1.5s infinite; }
+      .app-loading-text { color: white; font-size: 28px; margin-top: 12px; font-weight: 600; }
+      .app-loading-sub { color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 6px; }
+      @keyframes app-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div id="root">
+      <!-- Shown while React is loading (prevents black screen) -->
+      <div class="app-loading">
+        <div class="app-loading-icon">🛡️</div>
+        <div class="app-loading-text">SafeSteps</div>
+        <div class="app-loading-sub">Loading...</div>
+      </div>
+    </div>
+    <script type="module" src="./src/main.jsx"></script>
   </body>
 </html>

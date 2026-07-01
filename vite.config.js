@@ -4,6 +4,10 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './', // Required for Capacitor — loads from file:// protocol
+  server: {
+    host: '0.0.0.0', // Allow network access for Capacitor live reload
+  },
   plugins: [
     react(),
     VitePWA({
@@ -29,3 +33,4 @@ export default defineConfig({
     })
   ]
 })
+
