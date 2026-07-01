@@ -1,4 +1,4 @@
-# SafeSteps
+npm# SafeSteps
 
 **Teach seniors how to use common apps and stay safe online.**  
 A simple, accessible PWA with bite‑sized lessons, demos, quizzes, and printable safety checklists.
