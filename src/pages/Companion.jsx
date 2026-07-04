@@ -131,7 +131,7 @@ export default function Companion() {
       <Navbar title={t.chatTitle} />
 
       <div className="scrollable-content" style={{ display: 'flex', flexDirection: 'column' }}>
-        
+
         {/* Mascot Row */}
         <div className="companion-mascot-row" style={{ borderColor: 'var(--color-secondary)' }}>
           <div className="mascot-avatar" role="img" aria-label="Mascot avatar">🦉</div>
@@ -148,7 +148,7 @@ export default function Companion() {
           {messages.map((msg) => (
             <div key={msg.id} className={`message-bubble ${msg.sender}`}>
               <div style={{ whiteSpace: 'pre-line' }}>{msg.text}</div>
-              
+
               {msg.sender === 'bot' && (
                 <div className="message-audio-controls">
                   <SpeechSpeaker text={msg.text} />
@@ -164,8 +164,8 @@ export default function Companion() {
           <span style={{ fontSize: '13px', fontWeight: '800', color: 'var(--color-primary-dark)' }}>{t.chatAskHeader}</span>
           <div className="quick-topics">
             {activeQuestions.map((q, idx) => (
-              <button 
-                key={idx} 
+              <button
+                key={idx}
                 className="quick-topic-btn"
                 onClick={() => handleQuickQuestion(q)}
               >
@@ -176,11 +176,11 @@ export default function Companion() {
         </div>
 
         {/* Input Row */}
-        <form 
+        <form
           onSubmit={(e) => { e.preventDefault(); handleSend(); }}
           className="chat-input-row"
         >
-          <input 
+          <input
             type="text"
             className="chat-input"
             value={inputVal}
@@ -188,8 +188,8 @@ export default function Companion() {
             placeholder={t.chatInputPlaceholder}
             aria-label="Type your message"
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="chat-send-btn"
             title="Send message"
             aria-label="Send message"
